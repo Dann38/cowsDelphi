@@ -1,7 +1,7 @@
-object Form1: TForm1
+﻿object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = #1059#1095#1105#1090' '#1050#1086#1088#1086#1074
   ClientHeight = 479
   ClientWidth = 943
   Color = clBtnFace
@@ -20,11 +20,11 @@ object Form1: TForm1
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = TabSheet2
+    ActivePage = Добавление
     Align = alClient
     TabOrder = 0
-    object TabSheet1: TTabSheet
-      Caption = 'TabSheet1'
+    object Добавление: TTabSheet
+      Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077
       object DBGrid1: TDBGrid
         Left = 344
         Top = 109
@@ -56,62 +56,119 @@ object Form1: TForm1
         TabOrder = 2
       end
       object btnUpdateFilter: TButton
-        Left = 758
+        Left = 744
         Top = 3
-        Width = 75
+        Width = 114
         Height = 25
-        Caption = 'btnUpdateFilter'
+        Caption = #1054#1073#1085#1086#1074#1080#1090#1100' '#1060#1080#1083#1100#1090#1088#1099
         TabOrder = 3
         OnClick = btnUpdateFilterClick
       end
       object btnSearchCow: TButton
-        Left = 839
+        Left = 864
         Top = 3
-        Width = 75
+        Width = 50
         Height = 25
-        Caption = 'btnSearchCow'
+        Caption = #1055#1086#1080#1089#1082
         TabOrder = 4
         OnClick = btnSearchCowClick
       end
+      object Panel1: TPanel
+        Left = 3
+        Top = 3
+        Width = 305
+        Height = 439
+        TabOrder = 5
+        object Label1: TLabel
+          Left = 16
+          Top = 149
+          Width = 53
+          Height = 13
+          Caption = 'ID '#1050#1086#1088#1086#1074#1099
+        end
+        object Label2: TLabel
+          Left = 16
+          Top = 101
+          Width = 59
+          Height = 13
+          Caption = #1044#1072#1090#1072' '#1086#1090#1105#1083#1072
+        end
+        object date_cow: TDateTimePicker
+          Left = 16
+          Top = 120
+          Width = 186
+          Height = 21
+          Date = 43978.000000000000000000
+          Time = 0.491404386571957700
+          TabOrder = 0
+        end
+        object rgStatusCow: TRadioGroup
+          Left = 16
+          Top = 22
+          Width = 256
+          Height = 73
+          Caption = #1057#1090#1072#1090#1091#1089
+          TabOrder = 1
+        end
+        object id_cow: TEdit
+          Left = 16
+          Top = 168
+          Width = 121
+          Height = 21
+          TabOrder = 2
+          Text = '0'
+        end
+        object btnAppCow: TButton
+          Left = 16
+          Top = 208
+          Width = 75
+          Height = 25
+          Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+          TabOrder = 3
+          OnClick = btnAppCowClick
+        end
+      end
     end
     object TabSheet2: TTabSheet
-      Caption = 'TabSheet2'
+      Caption = #1055#1088#1086#1075#1085#1086#1079
       ImageIndex = 1
+      ExplicitLeft = 8
+      ExplicitTop = 28
       object Label3: TLabel
-        Left = 344
-        Top = 245
+        Left = 32
+        Top = 45
         Width = 69
         Height = 13
         Caption = #1050#1086#1083'-'#1074#1086' '#1050#1086#1088#1086#1074
       end
       object Label4: TLabel
-        Left = 344
-        Top = 301
+        Left = 32
+        Top = 92
         Width = 68
         Height = 13
         Caption = #1050#1086#1083'-'#1074#1086' '#1058#1105#1083#1086#1082
       end
       object mGrowCow: TMemo
-        Left = 656
+        Left = 208
         Top = 22
-        Width = 265
+        Width = 713
         Height = 403
         Lines.Strings = (
           'mGrowCow')
         TabOrder = 0
       end
       object btnUpDataGrow: TButton
-        Left = 344
-        Top = 368
+        Left = 32
+        Top = 152
         Width = 75
         Height = 25
-        Caption = 'btnUpDataGrow'
+        Caption = #1055#1088#1086#1075#1085#1086#1079
         TabOrder = 1
         OnClick = btnUpDataGrowClick
       end
       object spiCow: TSpinEdit
-        Left = 344
-        Top = 264
+        Left = 32
+        Top = 64
         Width = 121
         Height = 22
         MaxValue = 0
@@ -120,8 +177,8 @@ object Form1: TForm1
         Value = 0
       end
       object spiColf: TSpinEdit
-        Left = 344
-        Top = 320
+        Left = 32
+        Top = 111
         Width = 121
         Height = 22
         MaxValue = 0
@@ -129,61 +186,6 @@ object Form1: TForm1
         TabOrder = 3
         Value = 0
       end
-    end
-  end
-  object Panel1: TPanel
-    Left = 8
-    Top = 32
-    Width = 305
-    Height = 439
-    TabOrder = 1
-    object Label1: TLabel
-      Left = 16
-      Top = 149
-      Width = 53
-      Height = 13
-      Caption = 'ID '#1050#1086#1088#1086#1074#1099
-    end
-    object Label2: TLabel
-      Left = 16
-      Top = 101
-      Width = 59
-      Height = 13
-      Caption = #1044#1072#1090#1072' '#1086#1090#1105#1083#1072
-    end
-    object date_cow: TDateTimePicker
-      Left = 16
-      Top = 120
-      Width = 186
-      Height = 21
-      Date = 43978.000000000000000000
-      Time = 0.491404386571957700
-      TabOrder = 0
-    end
-    object rgStatusCow: TRadioGroup
-      Left = 16
-      Top = 22
-      Width = 256
-      Height = 73
-      Caption = #1057#1090#1072#1090#1091#1089
-      TabOrder = 1
-    end
-    object id_cow: TEdit
-      Left = 16
-      Top = 168
-      Width = 121
-      Height = 21
-      TabOrder = 2
-      Text = 'id_cow'
-    end
-    object btnAppCow: TButton
-      Left = 16
-      Top = 208
-      Width = 75
-      Height = 25
-      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-      TabOrder = 3
-      OnClick = btnAppCowClick
     end
   end
   object MainMenu1: TMainMenu

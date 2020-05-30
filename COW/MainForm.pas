@@ -11,18 +11,12 @@ uses
 type
   TForm1 = class(TForm)
     PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
+    Добавление: TTabSheet;
     TabSheet2: TTabSheet;
     MainMenu1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;
-    Panel1: TPanel;
-    date_cow: TDateTimePicker;
-    rgStatusCow: TRadioGroup;
-    id_cow: TEdit;
     btnAppCow: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
     DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
     Filter: TRadioGroup;
@@ -34,6 +28,12 @@ type
     spiColf: TSpinEdit;
     Label3: TLabel;
     Label4: TLabel;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    date_cow: TDateTimePicker;
+    rgStatusCow: TRadioGroup;
+    id_cow: TEdit;
     procedure N2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnAppCowClick(Sender: TObject);
