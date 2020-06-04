@@ -45,6 +45,8 @@ type
     tblMainCowid_feature: TIntegerField;
     tblMainCowfeature: TStringField;
     qFilterCow: TFDQuery;
+    qCount: TFDQuery;
+    qUpdateDate: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

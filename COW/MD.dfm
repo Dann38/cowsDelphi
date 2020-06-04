@@ -215,4 +215,14 @@ object DataModule1: TDataModule1
     Left = 344
     Top = 64
   end
+  object qCount: TFDQuery
+    Connection = FDConnection1
+    Left = 512
+    Top = 80
+  end
+  object qUpdateDate: TFDQuery
+    Connection = FDConnection1
+    Left = 536
+    Top = 152
+  end
 end

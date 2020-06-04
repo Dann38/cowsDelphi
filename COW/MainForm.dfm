@@ -20,7 +20,7 @@
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = Добавление
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
     object Добавление: TTabSheet
@@ -110,7 +110,7 @@
           Caption = #1057#1090#1072#1090#1091#1089
           TabOrder = 1
         end
-        object id_cow: TEdit
+        object id_p_cow: TEdit
           Left = 16
           Top = 168
           Width = 121
@@ -132,8 +132,6 @@
     object TabSheet2: TTabSheet
       Caption = #1055#1088#1086#1075#1085#1086#1079
       ImageIndex = 1
-      ExplicitLeft = 8
-      ExplicitTop = 28
       object Label3: TLabel
         Left = 32
         Top = 45
@@ -186,6 +184,15 @@
         TabOrder = 3
         Value = 0
       end
+      object btnDefaultQuantity: TButton
+        Left = 32
+        Top = 400
+        Width = 89
+        Height = 25
+        Caption = #1057#1077#1081#1095#1072#1089' '#1075#1086#1083#1086#1074
+        TabOrder = 4
+        OnClick = btnDefaultQuantityClick
+      end
     end
   end
   object MainMenu1: TMainMenu
@@ -196,6 +203,10 @@
       object N2: TMenuItem
         Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1041#1044
         OnClick = N2Click
+      end
+      object N3: TMenuItem
+        Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+        OnClick = N3Click
       end
     end
   end
