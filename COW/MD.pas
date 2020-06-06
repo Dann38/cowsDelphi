@@ -47,7 +47,6 @@ type
     qFilterCow: TFDQuery;
     qCount: TFDQuery;
     qUpdateDate: TFDQuery;
-    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,17 +61,5 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
-
-procedure TDataModule1.DataModuleCreate(Sender: TObject);
-begin
-    FDConnection1.Open();
-    tblCow.Open();
-    tblStatus.Open();
-    tblHistory.Open();
-    tblFeature.Open();
-    tblFeatureCow.Open();
-    tblColving.Open();
-    tblMainCow.Open();
-end;
 
 end.
