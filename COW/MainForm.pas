@@ -137,6 +137,7 @@ end;
 {БД редактирование и обновление}
 procedure TForm1.N2Click(Sender: TObject);
 begin
+  N3Click(Sender);
   DBControl.BDCow.Show();
 end;
 procedure TForm1.N3Click(Sender: TObject);
@@ -145,6 +146,15 @@ var
 begin
     UpdateStatusCow(UpdateOldSQL, ID_COLF, ID_COW);
     UpdateStatusCow(UpdateOldSQL, ID_GOBY, ID_BULL);
+
+    MD.DataModule1.FDConnection1.Open();
+    MD.DataModule1.tblCow.Open();
+    MD.DataModule1.tblStatus.Open();
+    MD.DataModule1.tblHistory.Open();
+    MD.DataModule1.tblFeature.Open();
+    MD.DataModule1.tblFeatureCow.Open();
+    MD.DataModule1.tblColving.Open();
+    MD.DataModule1.tblMainCow.Open();
 end;
 
 {Добавление коровы и поиск родителя}
@@ -178,6 +188,7 @@ var
   S: String;
   Q: TFDQuery;
 begin
+  MD.DataModule1.FDConnection1.Open();
   S:=Filter.Items[Filter.ItemIndex];
 
   Q:=MD.DataModule1.qFilterCow;
