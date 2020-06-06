@@ -1,4 +1,4 @@
-﻿object Form1: TForm1
+object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #1059#1095#1105#1090' '#1050#1086#1088#1086#1074
@@ -20,10 +20,11 @@
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = TabSheet2
+    ActivePage = tsFeed
     Align = alClient
     TabOrder = 0
-    object Добавление: TTabSheet
+    OnChange = PageControl1Change
+    object addCow: TTabSheet
       Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077
       object DBGrid1: TDBGrid
         Left = 344
@@ -151,8 +152,12 @@
         Top = 22
         Width = 713
         Height = 403
-        Lines.Strings = (
-          'mGrowCow')
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHotLight
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
       end
       object btnUpDataGrow: TButton
@@ -192,6 +197,88 @@
         Caption = #1057#1077#1081#1095#1072#1089' '#1075#1086#1083#1086#1074
         TabOrder = 4
         OnClick = btnDefaultQuantityClick
+      end
+    end
+    object tsFeed: TTabSheet
+      Caption = #1050#1086#1088#1084#1072
+      ImageIndex = 2
+      object mFeed: TMemo
+        Left = 464
+        Top = 0
+        Width = 471
+        Height = 451
+        Align = alRight
+        TabOrder = 0
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 464
+        Height = 451
+        Align = alClient
+        TabOrder = 1
+        ExplicitWidth = 473
+        object Panel3: TPanel
+          Left = 1
+          Top = 209
+          Width = 462
+          Height = 241
+          Align = alClient
+          TabOrder = 0
+          ExplicitWidth = 472
+        end
+        object Panel4: TPanel
+          Left = 1
+          Top = 1
+          Width = 462
+          Height = 208
+          Align = alTop
+          TabOrder = 1
+          ExplicitWidth = 513
+          object Label5: TLabel
+            Left = 17
+            Top = 21
+            Width = 31
+            Height = 13
+            Caption = #1050#1086#1088#1086#1074
+          end
+          object Label6: TLabel
+            Left = 16
+            Top = 75
+            Width = 32
+            Height = 13
+            Caption = #1041#1099#1082#1086#1074
+          end
+          object seFeedCow: TSpinEdit
+            Left = 16
+            Top = 40
+            Width = 121
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 0
+            Value = 0
+          end
+          object seFeedBull: TSpinEdit
+            Left = 17
+            Top = 94
+            Width = 121
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 1
+            Value = 0
+          end
+          object btnUpdataFeedData: TButton
+            Left = 16
+            Top = 136
+            Width = 121
+            Height = 25
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100' '#1076#1072#1085#1085#1099#1077
+            TabOrder = 2
+            OnClick = btnUpdataFeedDataClick
+          end
+        end
       end
     end
   end
