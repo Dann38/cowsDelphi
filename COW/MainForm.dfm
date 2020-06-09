@@ -20,7 +20,7 @@ object Form1: TForm1
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = tsFeed
+    ActivePage = addCow
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
@@ -133,6 +133,10 @@ object Form1: TForm1
     object TabSheet2: TTabSheet
       Caption = #1055#1088#1086#1075#1085#1086#1079
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label3: TLabel
         Left = 32
         Top = 45
@@ -217,7 +221,6 @@ object Form1: TForm1
         Height = 451
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 473
         object Panel3: TPanel
           Left = 1
           Top = 209
@@ -225,7 +228,6 @@ object Form1: TForm1
           Height = 241
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 472
         end
         object Panel4: TPanel
           Left = 1
@@ -234,7 +236,6 @@ object Form1: TForm1
           Height = 208
           Align = alTop
           TabOrder = 1
-          ExplicitWidth = 513
           object Label5: TLabel
             Left = 17
             Top = 21
