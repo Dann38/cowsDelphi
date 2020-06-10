@@ -59,6 +59,7 @@ type
     procedure btnUpdataFeedDataClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure UpdateStatusCow(sql_text:String; id_before, id_after: integer);
+    procedure DBGrid1CellClick(Column: TColumn);
   private
     procedure CreatingConstants;
   public
@@ -122,6 +123,8 @@ begin
   MASS_SMALL_BALE:=0.25;
   MASS_BIG_BALE:=0.5;
 end;
+
+
 procedure TForm1.FormCreate(Sender: TObject);
 
 begin
@@ -158,6 +161,10 @@ begin
 end;
 
 {Добавление коровы и поиск родителя}
+procedure TForm1.DBGrid1CellClick(Column: TColumn);
+begin
+  id_p_cow.Text:=DBGrid1.SelectedField.AsString;
+end;
 procedure TForm1.btnAppCowClick(Sender: TObject);
 var
   Q: TFDQuery;

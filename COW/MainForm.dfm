@@ -38,6 +38,7 @@ object Form1: TForm1
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnCellClick = DBGrid1CellClick
       end
       object DBNavigator1: TDBNavigator
         Left = 528
