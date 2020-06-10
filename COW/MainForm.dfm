@@ -47,22 +47,13 @@ object Form1: TForm1
         DataSource = DataModule1.dsMainCow
         TabOrder = 1
       end
-      object Filter: TRadioGroup
-        Left = 344
-        Top = 34
-        Width = 569
-        Height = 67
-        Caption = 'Filter'
-        Columns = 5
-        TabOrder = 2
-      end
       object btnUpdateFilter: TButton
         Left = 744
         Top = 3
         Width = 114
         Height = 25
         Caption = #1054#1073#1085#1086#1074#1080#1090#1100' '#1060#1080#1083#1100#1090#1088#1099
-        TabOrder = 3
+        TabOrder = 2
         OnClick = btnUpdateFilterClick
       end
       object btnSearchCow: TButton
@@ -71,7 +62,7 @@ object Form1: TForm1
         Width = 50
         Height = 25
         Caption = #1055#1086#1080#1089#1082
-        TabOrder = 4
+        TabOrder = 3
         OnClick = btnSearchCowClick
       end
       object Panel1: TPanel
@@ -79,7 +70,7 @@ object Form1: TForm1
         Top = 3
         Width = 305
         Height = 439
-        TabOrder = 5
+        TabOrder = 4
         object Label1: TLabel
           Left = 16
           Top = 149
@@ -129,14 +120,19 @@ object Form1: TForm1
           OnClick = btnAppCowClick
         end
       end
+      object clbFilter: TCheckListBox
+        Left = 344
+        Top = 34
+        Width = 577
+        Height = 64
+        Columns = 4
+        ItemHeight = 13
+        TabOrder = 5
+      end
     end
     object TabSheet2: TTabSheet
       Caption = #1055#1088#1086#1075#1085#1086#1079
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label3: TLabel
         Left = 32
         Top = 45
@@ -212,6 +208,12 @@ object Form1: TForm1
         Width = 471
         Height = 451
         Align = alRight
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlight
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
       end
       object Panel2: TPanel

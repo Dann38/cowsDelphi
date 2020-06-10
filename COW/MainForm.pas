@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.ExtCtrls, Vcl.DBCtrls,
   Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.Menus, Vcl.ComCtrls,
-  FireDAC.Comp.Client, Vcl.Samples.Spin, DateUtils;
+  FireDAC.Comp.Client, Vcl.Samples.Spin, DateUtils, Vcl.CheckLst;
 
 type
   TForm1 = class(TForm)
@@ -19,7 +19,6 @@ type
     btnAppCow: TButton;
     DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
-    Filter: TRadioGroup;
     btnUpdateFilter: TButton;
     btnSearchCow: TButton;
     mGrowCow: TMemo;
@@ -46,6 +45,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     btnUpdataFeedData: TButton;
+    clbFilter: TCheckListBox;
     procedure N2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnAppCowClick(Sender: TObject);
@@ -184,16 +184,34 @@ begin
 end;
 procedure TForm1.btnSearchCowClick(Sender: TObject);
 var
-  num: Integer;
-  S: String;
+  num, i: Integer;
+  S, S2: String;
   Q: TFDQuery;
+  first: Boolean;
 begin
   MD.DataModule1.FDConnection1.Open();
-  S:=Filter.Items[Filter.ItemIndex];
+  S2:='fc.id as "id Коровы", count(fc.id) as "Совпало признаков"';
+  S:= 'where ';
+  first := True;
+
+  for i := 0 to clbFilter.Count - 1 do
+  if clbFilter.Checked[i] then
+    if first then begin
+      S:= S + 'f.name = "' + clbFilter.Items[i]+ '"';
+      first:=false;
+    end else begin
+      S:= S + ' or f.name = "' + clbFilter.Items[i]+ '"';
+    end;
+
+  if first then begin
+    S:= '';
+    S2:= 'fc.id';
+  end else
+    S:= S +' GROUP BY fc.id ORDER BY "Совпало признаков" DESC';
 
   Q:=MD.DataModule1.qFilterCow;
   Q.Close;
-  Q.SQL.Text:='Select fc.id From feature as f left join feature_cow as fc ON f.id = fc.id_feature where f.name = "'+ S +'"';
+  Q.SQL.Text:='Select '+ S2 +' From feature as f left join feature_cow as fc ON f.id = fc.id_feature '+ S;
   Q.Open();
 end;
 procedure TForm1.btnUpdateFilterClick(Sender: TObject);
@@ -204,9 +222,11 @@ begin
   DataModule1.tblFeature.Open();
   T:=DataModule1.tblFeature;
   T.First;
-  Filter.Items.Clear;
+//  Filter.Items.Clear;
+  clbFilter.Items.Clear;
   while Not T.EoF do begin
-    Filter.Items.Add(T.Fields[1].AsString);
+//    Filter.Items.Add(T.Fields[1].AsString);
+    clbFilter.Items.Add(T.Fields[1].AsString);
     T.Next;
   end;
 end;
@@ -249,6 +269,9 @@ procedure TForm1.PageControl1Change(Sender: TObject);
 begin
     seFeedCow.Value:=getCountCowByStatus(ID_COW);//+getCountCowByStatus(ID_COLF);
     sefeedBull.Value:=getCountCowByStatus(ID_BULL);
+
+    spiCow.Value:= getCountCowByStatus(id_cow);
+    spiColf.Value:= getCountCowByStatus(id_colf);
 end;
 procedure TForm1.btnUpdataFeedDataClick(Sender: TObject);
 var
