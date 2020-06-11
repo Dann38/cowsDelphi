@@ -20,7 +20,7 @@ object Form1: TForm1
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = addCow
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
@@ -295,10 +295,21 @@ object Form1: TForm1
         Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1041#1044
         OnClick = N2Click
       end
-      object N3: TMenuItem
+      object siUpdateDB: TMenuItem
         Caption = #1054#1073#1085#1086#1074#1080#1090#1100
-        OnClick = N3Click
+        OnClick = siUpdateDBClick
       end
     end
+    object Settings: TMenuItem
+      Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+      object smConnectionDb: TMenuItem
+        Caption = #1055#1086#1076#1082#1083#1102#1095#1077#1085#1080#1077' '#1041#1044
+        OnClick = smConnectionDbClick
+      end
+    end
+  end
+  object odConDB: TOpenDialog
+    Left = 404
+    Top = 65528
   end
 end

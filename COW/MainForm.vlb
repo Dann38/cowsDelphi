@@ -97,9 +97,6 @@ Coordinates=10,438,50,33
 [PageControl1]
 Coordinates=665,370,81,33
 
-[N3]
-Coordinates=941,672,40,33
-
 [DataModule1.tblHistory]
 Coordinates=717,302,129,51
 
@@ -163,4 +160,7 @@ Visible=True
 
 [clbFilter]
 Coordinates=783,131,88,33
+
+[siUpdateDB]
+Coordinates=941,672,40,33
 

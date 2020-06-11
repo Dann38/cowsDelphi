@@ -47,6 +47,8 @@ type
     qFilterCow: TFDQuery;
     qCount: TFDQuery;
     qUpdateDate: TFDQuery;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure  ConectedDB(Sender: TObject;  path: string);
   private
     { Private declarations }
   public
@@ -57,9 +59,32 @@ var
   DataModule1: TDataModule1;
 
 implementation
+uses
+  MainForm;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+procedure TDataModule1.ConectedDB(Sender:TObject; path: string);
+begin
+{Подключение к базе данных}
+  MainForm.Form1.ConnectedIs(True);
+  FDConnection1.Params.Database:=path;
+end;
+
+procedure TDataModule1.DataModuleCreate(Sender: TObject);
+var
+  f: TextFile;
+  sFileName: string;
+begin
+  AssignFile(f, 'setting\pathDB.txt');
+  try
+    Reset(f);
+    Readln(f, sFileName);
+  finally
+    CloseFile(f);
+  end;
+    ConectedDB(Sender, sFileName);
+end;
 
 end.

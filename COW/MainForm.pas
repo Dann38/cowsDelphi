@@ -34,7 +34,7 @@ type
     rgStatusCow: TRadioGroup;
     id_p_cow: TEdit;
     btnDefaultQuantity: TButton;
-    N3: TMenuItem;
+    siUpdateDB: TMenuItem;
     tsFeed: TTabSheet;
     mFeed: TMemo;
     Panel2: TPanel;
@@ -46,6 +46,9 @@ type
     Label6: TLabel;
     btnUpdataFeedData: TButton;
     clbFilter: TCheckListBox;
+    Settings: TMenuItem;
+    smConnectionDb: TMenuItem;
+    odConDB: TOpenDialog;
     procedure N2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnAppCowClick(Sender: TObject);
@@ -54,16 +57,19 @@ type
     procedure btnUpDataGrowClick(Sender: TObject);
     function GetStrCowNextYear(var cow, colf: integer): String;
     procedure btnDefaultQuantityClick(Sender: TObject);
-    procedure N3Click(Sender: TObject);
+    procedure siUpdateDBClick(Sender: TObject);
     function getCountCowByStatus(id: integer): Integer;
     procedure btnUpdataFeedDataClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
     procedure UpdateStatusCow(sql_text:String; id_before, id_after: integer);
     procedure DBGrid1CellClick(Column: TColumn);
+    procedure smConnectionDbClick(Sender: TObject);
+    procedure ConnectedIs(ans:Boolean);
   private
     procedure CreatingConstants;
+    procedure CreatingSettingFiles;
   public
-    { Public declarations }
+
   end;
 const
   CountSQL= 'SELECT count(id) From %s where id_status=%d';
@@ -74,6 +80,7 @@ var
   MASS_BIG_BALE: Double;
   YAER_QUANTITY: integer;
   ID_COW, ID_COLF, ID_BULL, ID_GOBY: Integer;
+  isDB_CONNECTED: Boolean;
 
 
 implementation
@@ -81,12 +88,22 @@ implementation
 {$R *.dfm}
 uses
   MD, DBControl;
+
+{Сторонние функции}
+ procedure TForm1.ConnectedIs(ans:Boolean);
+ begin
+   isDB_CONNECTED:=ans;
+ end;
+
 {Запросы к БД}
+
 function TForm1.getCountCowByStatus(id: integer): Integer;
 var
     Q: TFDQuery;
 begin
-    DataModule1.FDConnection1.Open();
+  if isDB_CONNECTED then begin
+
+    DataModule1.FDConnection1.Open();  {МОЖНО УБРАТь}
     Q:=MD.DataModule1.qCount;
 
     Q.Close;
@@ -96,6 +113,9 @@ begin
 
     Q.Close;
     DataModule1.FDConnection1.Close;
+  end else
+    getCountCowByStatus:=0;
+
 end;
 procedure TForm1.UpdateStatusCow(sql_text:String; id_before, id_after: integer);
 var
@@ -109,6 +129,18 @@ begin
 end;
 
 {Создание Формы и бъявление констант}      //Сделать константы из Базы данных
+
+procedure TForm1.CreatingSettingFiles;
+var
+  f : TextFile;
+begin
+  if CreateDir('setting') then begin
+     AssignFile(f, 'setting\pathDB.txt');
+     Rewrite(f);
+     Writeln(f, ExtractFilePath(Application.ExeName) + 'cow.db');
+     CloseFile(f);
+  end;
+end;
 procedure TForm1.CreatingConstants;
 begin
   ID_COLF:=1;
@@ -122,12 +154,30 @@ begin
   FEED_RATE_COW:=FEED_RATE_HAY+FEED_RATE_BREAD;
   MASS_SMALL_BALE:=0.25;
   MASS_BIG_BALE:=0.5;
+  isDB_CONNECTED:=False;
 end;
-
-
-procedure TForm1.FormCreate(Sender: TObject);
-
+procedure TForm1.smConnectionDbClick(Sender: TObject);
+var
+  S:string;
+  f: TextFile;
 begin
+  if odConDB.Execute then begin
+    S:=odConDB.FileName;
+
+    AssignFile(f, 'setting\pathDB.txt');
+    try
+      Rewrite(f);
+      Writeln(f, S);
+    finally
+      CloseFile(f);
+    end;
+
+    MD.DataModule1.ConectedDB(Sender, S);
+  end;
+end;
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  CreatingSettingFiles;
   CreatingConstants;
 
   rgStatusCow.Items.Add('Теленок');
@@ -140,24 +190,29 @@ end;
 {БД редактирование и обновление}
 procedure TForm1.N2Click(Sender: TObject);
 begin
-  N3Click(Sender);
-  DBControl.BDCow.Show();
+    siUpdateDBClick(Sender);
+    DBControl.BDCow.Show();
 end;
-procedure TForm1.N3Click(Sender: TObject);
+procedure TForm1.siUpdateDBClick(Sender: TObject);
 var
   Q: TFDQuery;
 begin
-    UpdateStatusCow(UpdateOldSQL, ID_COLF, ID_COW);
-    UpdateStatusCow(UpdateOldSQL, ID_GOBY, ID_BULL);
+    try
+      MD.DataModule1.FDConnection1.Open();
+      MD.DataModule1.tblCow.Open();
+      MD.DataModule1.tblStatus.Open();
+      MD.DataModule1.tblHistory.Open();
+      MD.DataModule1.tblFeature.Open();
+      MD.DataModule1.tblFeatureCow.Open();
+      MD.DataModule1.tblColving.Open();
+      MD.DataModule1.tblMainCow.Open();
 
-    MD.DataModule1.FDConnection1.Open();
-    MD.DataModule1.tblCow.Open();
-    MD.DataModule1.tblStatus.Open();
-    MD.DataModule1.tblHistory.Open();
-    MD.DataModule1.tblFeature.Open();
-    MD.DataModule1.tblFeatureCow.Open();
-    MD.DataModule1.tblColving.Open();
-    MD.DataModule1.tblMainCow.Open();
+      UpdateStatusCow(UpdateOldSQL, ID_COLF, ID_COW);
+      UpdateStatusCow(UpdateOldSQL, ID_GOBY, ID_BULL);
+    except
+      isDB_CONNECTED:=False;
+      ShowMessage('БД не найдена или уже используется другим приложением');
+    end;
 end;
 
 {Добавление коровы и поиск родителя}
@@ -171,23 +226,26 @@ var
   num: Integer;
   date, id_p_colf: String;
 begin
-  MD.DataModule1.FDConnection1.Open();
-  MD.DataModule1.tblCow.Open();
-  Q:= MD.DataModule1.qAppCow;
-  num:= rgStatusCow.ItemIndex +1;
-  date:=FormatDateTime('yyyy-mm-dd',date_cow.DateTime);
+  if isDB_CONNECTED then begin
 
-  MD.DataModule1.qAppCow.Close();
-  MD.DataModule1.qAppCow.SQL.Text:='insert into cow (id_status, date) VALUES(' +
-  IntToStr(num) +', "'+ date +'");';
-  MD.DataModule1.qAppCow.ExecSQL;
+    MD.DataModule1.FDConnection1.Open();{МОЖНО УБРАТЬ}
+    MD.DataModule1.tblCow.Open();  {МОЖНО УБРАТЬ}
+    Q:= MD.DataModule1.qAppCow;
+    num:= rgStatusCow.ItemIndex +1;
+    date:=FormatDateTime('yyyy-mm-dd',date_cow.DateTime);
 
-  MD.DataModule1.tblCow.Last;
-  id_p_colf:= MD.DataModule1.tblCow.FieldByName('id').AsString;
-  MD.DataModule1.qAppCow.Close();
-  MD.DataModule1.qAppCow.SQL.Text:= 'insert into colving (id_cow, id_colf) VALUES('+
-  id_p_cow.Text + ', '+ id_p_colf +')';
-  MD.DataModule1.qAppCow.ExecSQL;
+    MD.DataModule1.qAppCow.Close();
+    MD.DataModule1.qAppCow.SQL.Text:='insert into cow (id_status, date) VALUES(' +
+    IntToStr(num) +', "'+ date +'");';
+    MD.DataModule1.qAppCow.ExecSQL;
+
+    MD.DataModule1.tblCow.Last;
+    id_p_colf:= MD.DataModule1.tblCow.FieldByName('id').AsString;
+    MD.DataModule1.qAppCow.Close();
+    MD.DataModule1.qAppCow.SQL.Text:= 'insert into colving (id_cow, id_colf) VALUES('+
+    id_p_cow.Text + ', '+ id_p_colf +')';
+    MD.DataModule1.qAppCow.ExecSQL;
+  end
 end;
 procedure TForm1.btnSearchCowClick(Sender: TObject);
 var
@@ -196,45 +254,51 @@ var
   Q: TFDQuery;
   first: Boolean;
 begin
-  MD.DataModule1.FDConnection1.Open();
-  S2:='fc.id as "id Коровы", count(fc.id) as "Совпало признаков"';
-  S:= 'where ';
-  first := True;
+  if isDB_CONNECTED then begin
+    MD.DataModule1.FDConnection1.Open(); {МОЖНО УБРАТЬ}
+    S2:='fc.id as "id Коровы", count(fc.id) as "Совпало признаков"';
+    S:= 'where ';
+    first := True;
 
-  for i := 0 to clbFilter.Count - 1 do
-  if clbFilter.Checked[i] then
+    for i := 0 to clbFilter.Count - 1 do
+    if clbFilter.Checked[i] then
+      if first then begin
+        S:= S + 'f.name = "' + clbFilter.Items[i]+ '"';
+        first:=false;
+      end else begin
+        S:= S + ' or f.name = "' + clbFilter.Items[i]+ '"';
+      end;
+
     if first then begin
-      S:= S + 'f.name = "' + clbFilter.Items[i]+ '"';
-      first:=false;
-    end else begin
-      S:= S + ' or f.name = "' + clbFilter.Items[i]+ '"';
-    end;
+      S:= '';
+      S2:= 'fc.id';
+    end else
+      S:= S +' GROUP BY fc.id ORDER BY "Совпало признаков" DESC';
 
-  if first then begin
-    S:= '';
-    S2:= 'fc.id';
-  end else
-    S:= S +' GROUP BY fc.id ORDER BY "Совпало признаков" DESC';
+    Q:=MD.DataModule1.qFilterCow;
+    Q.Close;
+    Q.SQL.Text:='Select '+ S2 +' From feature as f left join feature_cow as fc ON f.id = fc.id_feature '+ S;
+    Q.Open();
+  end;
 
-  Q:=MD.DataModule1.qFilterCow;
-  Q.Close;
-  Q.SQL.Text:='Select '+ S2 +' From feature as f left join feature_cow as fc ON f.id = fc.id_feature '+ S;
-  Q.Open();
 end;
 procedure TForm1.btnUpdateFilterClick(Sender: TObject);
 var
   T:TFDTable;
 begin
-  DataModule1.FDConnection1.Open();
-  DataModule1.tblFeature.Open();
-  T:=DataModule1.tblFeature;
-  T.First;
-//  Filter.Items.Clear;
-  clbFilter.Items.Clear;
-  while Not T.EoF do begin
-//    Filter.Items.Add(T.Fields[1].AsString);
-    clbFilter.Items.Add(T.Fields[1].AsString);
-    T.Next;
+  if isDB_CONNECTED then  begin
+
+    DataModule1.FDConnection1.Open();{МОЖНО УБРАТЬ}
+    DataModule1.tblFeature.Open(); {МОЖНО УБРАТЬ}
+    T:=DataModule1.tblFeature;
+    T.First;
+  //  Filter.Items.Clear;
+    clbFilter.Items.Clear;
+    while Not T.EoF do begin
+  //    Filter.Items.Add(T.Fields[1].AsString);
+      clbFilter.Items.Add(T.Fields[1].AsString);
+      T.Next;
+    end;
   end;
 end;
 
@@ -297,4 +361,5 @@ begin
     S:=S + 'Хлеб: ' + intToStr(massBread) + ' т.'#13#10;
     mFeed.Text:=S;
 end;
+
 end.
