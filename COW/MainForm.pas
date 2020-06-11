@@ -191,7 +191,8 @@ end;
 procedure TForm1.N2Click(Sender: TObject);
 begin
     siUpdateDBClick(Sender);
-    DBControl.BDCow.Show();
+    if isDB_CONNECTED then
+      DBControl.BDCow.Show();
 end;
 procedure TForm1.siUpdateDBClick(Sender: TObject);
 var
@@ -305,8 +306,10 @@ end;
 {Расчет развития стада}
 procedure TForm1.btnDefaultQuantityClick(Sender: TObject);
 begin
+  if isDB_CONNECTED then  begin
     spiCow.Value:= getCountCowByStatus(id_cow);
     spiColf.Value:= getCountCowByStatus(id_colf);
+  end;
 end;
 function TForm1.GetStrCowNextYear(var cow, colf: integer): String;
 var
@@ -328,6 +331,7 @@ begin
   date:= yearof(Now);
   cow:=spiCow.Value;
   colf:=spiColf.Value;
+  mGrowCow.Text:='';
   for i := 1 to YAER_QUANTITY do begin
     S := S + '====== '+ IntToStr(date+i) + 'ГОД ======'#13#10+
     GetStrCowNextYear(cow, colf);
