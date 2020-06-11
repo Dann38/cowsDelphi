@@ -84,7 +84,8 @@ begin
   finally
     CloseFile(f);
   end;
-    ConectedDB(Sender, sFileName);
+  ConectedDB(Sender, sFileName);
+  MainForm.Form1.siUpdateDBClick(Sender);
 end;
 
 end.
