@@ -7,7 +7,6 @@ object DataModule1: TDataModule1
     Params.Strings = (
       'DriverID=SQLite'
       'Database=C:\Users\danii\'#1056#1072#1073#1086#1095#1080#1081' '#1089#1090#1086#1083'\cow.db')
-    Connected = True
     LoginPrompt = False
     Left = 32
     Top = 16
@@ -232,7 +231,7 @@ object DataModule1: TDataModule1
     Top = 112
   end
   object tblImageCow: TFDTable
-    IndexFieldNames = 'id'
+    IndexFieldNames = 'id;image'
     MasterSource = dsCow
     MasterFields = 'id'
     Connection = FDConnection1
@@ -293,5 +292,45 @@ object DataModule1: TDataModule1
     DataSet = tblImgMainCow
     Left = 344
     Top = 264
+  end
+  object tblColvingMain: TFDTable
+    IndexFieldNames = 'id_cow;id;id_colf'
+    MasterSource = dsMainCow
+    MasterFields = 'id'
+    Connection = FDConnection1
+    UpdateOptions.UpdateTableName = 'colving'
+    TableName = 'colving'
+    Left = 264
+    Top = 208
+    object tblColvingMainid_cow: TIntegerField
+      FieldName = 'id_cow'
+      Origin = 'id_cow'
+      Visible = False
+    end
+    object tblColvingMainid_colf: TIntegerField
+      FieldName = 'id_colf'
+      Origin = 'id_colf'
+    end
+    object tblColvingMainid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      Visible = False
+    end
+    object tblColvingMaindate: TDateField
+      FieldKind = fkLookup
+      FieldName = 'date'
+      LookupDataSet = tblCow
+      LookupKeyFields = 'id'
+      LookupResultField = 'date'
+      KeyFields = 'id_colf'
+      LookupCache = True
+      Lookup = True
+    end
+  end
+  object dsColvingMain: TDataSource
+    DataSet = tblColvingMain
+    Left = 264
+    Top = 256
   end
 end

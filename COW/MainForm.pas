@@ -18,7 +18,6 @@ type
     N2: TMenuItem;
     btnAppCow: TButton;
     DBGrid1: TDBGrid;
-    DBNavigator1: TDBNavigator;
     btnUpdateFilter: TButton;
     btnSearchCow: TButton;
     mGrowCow: TMemo;
@@ -50,6 +49,15 @@ type
     odConDB: TOpenDialog;
     DBImage1: TDBImage;
     id_p_cow: TDBEdit;
+    TabSheet1: TTabSheet;
+    DBNavigator2: TDBNavigator;
+    DBImage2: TDBImage;
+    DBGrid2: TDBGrid;
+    clbFilterColving: TCheckListBox;
+    DBNavigator3: TDBNavigator;
+    Button1: TButton;
+    Button2: TButton;
+    DBGrid3: TDBGrid;
     procedure N2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnAppCowClick(Sender: TObject);
@@ -65,6 +73,8 @@ type
     procedure UpdateStatusCow(sql_text:String; id_before, id_after: integer);
     procedure smConnectionDbClick(Sender: TObject);
     procedure ConnectedIs(ans:Boolean);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     procedure CreatingConstants;
     procedure CreatingSettingFiles;
@@ -211,6 +221,7 @@ begin
       MD.DataModule1.tblImage.Open();
       MD.DataModule1.tblImgMainCow.Open();
       MD.DataModule1.qFilterCow.Open();
+      MD.DataModule1.tblColvingMain.Open();
 
       UpdateStatusCow(UpdateOldSQL, ID_COLF, ID_COW);
       UpdateStatusCow(UpdateOldSQL, ID_GOBY, ID_BULL);
@@ -301,6 +312,8 @@ begin
   end;
 end;
 
+
+
 {Расчет развития стада}
 procedure TForm1.btnDefaultQuantityClick(Sender: TObject);
 begin
@@ -345,6 +358,8 @@ begin
 
     spiCow.Value:= getCountCowByStatus(id_cow);
     spiColf.Value:= getCountCowByStatus(id_colf);
+
+    siUpdateDBClick(Sender);
 end;
 procedure TForm1.btnUpdataFeedDataClick(Sender: TObject);
 var
@@ -362,6 +377,55 @@ begin
     S:=S + 'Сена: ' + intToStr(massHay) + ' т. ' + #9#9+ intToStr(hayBale)+' тюк.('+intToStr(SmallHayBale)+' маленьких тюк.)'#13#10;
     S:=S + 'Хлеб: ' + intToStr(massBread) + ' т.'#13#10;
     mFeed.Text:=S;
+end;
+
+
+{Отёл}
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  T:TFDTable;
+begin
+    if isDB_CONNECTED then  begin
+    T:=DataModule1.tblFeature;
+    T.First;
+    clbFilterColving.Items.Clear;
+    while Not T.EoF do begin
+      clbFilterColving.Items.Add(T.Fields[1].AsString);
+      T.Next;
+    end;
+  end;
+end;
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  num, i: Integer;
+  S, S2, Str: String;
+  first: Boolean;
+begin
+  if isDB_CONNECTED then begin
+
+    first := True;
+
+    MD.DataModule1.qFilterCow.Filtered:=True;
+
+    for i := 0 to clbFilterColving.Count - 1 do
+    if clbFilterColving.Checked[i] then begin
+      if first then begin
+        Str:=#39 + clbFilterColving.Items[i] + #39;
+        MD.DataModule1.qFilterCow.Filter:='name = '+Str;
+        first:=False;
+      end else
+      begin
+        Str:=#39 + clbFilterColving.Items[i] + #39;
+        MD.DataModule1.qFilterCow.Filter:=MD.DataModule1.qFilterCow.Filter +
+        'OR name = '+Str;
+        first:=False;
+      end;
+    end;
+
+    if first then
+      MD.DataModule1.qFilterCow.Filtered:=False;
+
+  end;
 end;
 
 end.

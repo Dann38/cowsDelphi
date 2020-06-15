@@ -3,7 +3,7 @@ object BDCow: TBDCow
   Top = 0
   Caption = #1041#1072#1079#1072' '#1044#1072#1085#1085#1099#1093
   ClientHeight = 373
-  ClientWidth = 707
+  ClientWidth = 708
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,15 +16,16 @@ object BDCow: TBDCow
   object pages: TPageControl
     Left = 0
     Top = 0
-    Width = 707
+    Width = 708
     Height = 373
     ActivePage = Cow
     Align = alClient
     TabOrder = 0
     object Cow: TTabSheet
-      Caption = 'Cow'
+      Caption = #1050#1086#1088#1086#1074#1099
+      ExplicitWidth = 699
       object Splitter1: TSplitter
-        Left = 345
+        Left = 305
         Top = 0
         Height = 345
         ExplicitLeft = 304
@@ -34,7 +35,7 @@ object BDCow: TBDCow
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 345
+        Width = 305
         Height = 345
         Align = alLeft
         Caption = 'Panel1'
@@ -42,9 +43,9 @@ object BDCow: TBDCow
         object DBGrid1: TDBGrid
           Left = 1
           Top = 1
-          Width = 343
+          Width = 303
           Height = 318
-          Align = alClient
+          Align = alBottom
           DataSource = DataModule1.dsCow
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -56,35 +57,39 @@ object BDCow: TBDCow
         object DBNavigator1: TDBNavigator
           Left = 1
           Top = 319
-          Width = 343
+          Width = 303
           Height = 25
           DataSource = DataModule1.dsCow
           Align = alBottom
           TabOrder = 1
+          ExplicitWidth = 343
         end
       end
       object Panel2: TPanel
-        Left = 348
+        Left = 308
         Top = 0
-        Width = 351
+        Width = 392
         Height = 345
         Align = alClient
         Caption = 'Panel2'
         TabOrder = 1
+        ExplicitLeft = 348
+        ExplicitWidth = 351
         object DBNavigator2: TDBNavigator
           Left = 1
           Top = 121
-          Width = 349
+          Width = 390
           Height = 25
           DataSource = DataModule1.dsFeatureCow
           Align = alTop
           TabOrder = 0
           ExplicitTop = 319
+          ExplicitWidth = 349
         end
         object DBGrid2: TDBGrid
           Left = 1
           Top = 1
-          Width = 349
+          Width = 390
           Height = 120
           Align = alTop
           DataSource = DataModule1.dsFeatureCow
@@ -114,18 +119,21 @@ object BDCow: TBDCow
         object edImage: TDBImage
           Left = 3
           Top = 152
-          Width = 343
+          Width = 342
           Height = 185
           DataField = 'image'
           DataSource = DataModule1.dsImageCow
           PopupMenu = pmImage
+          Proportional = True
+          Stretch = True
           TabOrder = 2
         end
       end
     end
     object Other: TTabSheet
-      Caption = 'Other'
+      Caption = #1055#1088#1080#1079#1085#1072#1082#1080
       ImageIndex = 1
+      ExplicitWidth = 699
       object DBNavigator3: TDBNavigator
         Left = 24
         Top = 142
@@ -170,8 +178,9 @@ object BDCow: TBDCow
       end
     end
     object History: TTabSheet
-      Caption = 'History'
+      Caption = #1047#1072#1084#1077#1090#1082#1080
       ImageIndex = 2
+      ExplicitWidth = 699
       object DBNavigator4: TDBNavigator
         Left = 43
         Top = 317
@@ -204,8 +213,9 @@ object BDCow: TBDCow
       end
     end
     object Colving: TTabSheet
-      Caption = 'Colving'
+      Caption = #1054#1090#1105#1083
       ImageIndex = 3
+      ExplicitWidth = 699
       object DBNavigator6: TDBNavigator
         Left = 216
         Top = 304
@@ -229,8 +239,9 @@ object BDCow: TBDCow
       end
     end
     object tsImage: TTabSheet
-      Caption = 'Image'
+      Caption = #1060#1086#1090#1086
       ImageIndex = 4
+      ExplicitWidth = 699
       object DBGrid7: TDBGrid
         Left = 3
         Top = 3
@@ -251,7 +262,9 @@ object BDCow: TBDCow
         Height = 286
         DataField = 'image'
         DataSource = DataModule1.dsImage
-        PopupMenu = pmImage
+        PopupMenu = pmImage2
+        Proportional = True
+        Stretch = True
         TabOrder = 1
       end
       object DBNavigator7: TDBNavigator
@@ -279,5 +292,19 @@ object BDCow: TBDCow
   object odImage: TOpenPictureDialog
     Left = 312
     Top = 65528
+  end
+  object pmImage2: TPopupMenu
+    Left = 616
+    object imInsert: TMenuItem
+      Caption = #1042#1089#1090#1072#1074#1080#1090#1100
+      OnClick = imInsertClick
+    end
+    object imOpenImage: TMenuItem
+      Caption = #1054#1090#1082#1088#1099#1090#1100
+      OnClick = imOpenImageClick
+    end
+  end
+  object odImage2: TOpenPictureDialog
+    Left = 660
   end
 end
