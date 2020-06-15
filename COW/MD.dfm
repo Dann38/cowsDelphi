@@ -1,8 +1,8 @@
 object DataModule1: TDataModule1
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 209
-  Width = 601
+  Height = 330
+  Width = 536
   object FDConnection1: TFDConnection
     Params.Strings = (
       'DriverID=SQLite'
@@ -202,7 +202,7 @@ object DataModule1: TDataModule1
   end
   object dsMainCow: TDataSource
     DataSet = qFilterCow
-    Left = 352
+    Left = 344
     Top = 160
   end
   object qAppCow: TFDQuery
@@ -211,18 +211,126 @@ object DataModule1: TDataModule1
     Top = 112
   end
   object qFilterCow: TFDQuery
+    FilterOptions = [foCaseInsensitive, foNoPartialCompare]
     Connection = FDConnection1
+    SQL.Strings = (
+      
+        'SELECT fc.id, f.name FROM feature_cow as fc LEFT JOIN feature as' +
+        ' f ON fc.id_feature = f.id UNION SELECT id, "" FROM cow;')
     Left = 344
     Top = 64
   end
   object qCount: TFDQuery
     Connection = FDConnection1
-    Left = 512
-    Top = 80
+    Left = 432
+    Top = 112
   end
   object qUpdateDate: TFDQuery
     Connection = FDConnection1
-    Left = 536
-    Top = 152
+    Left = 472
+    Top = 112
+  end
+  object tblImageCow: TFDTable
+    IndexFieldNames = 'id;image'
+    MasterSource = dsCow
+    MasterFields = 'id'
+    Connection = FDConnection1
+    UpdateOptions.UpdateTableName = 'image_cow'
+    TableName = 'image_cow'
+    Left = 16
+    Top = 224
+    object tblImageCowid: TFDAutoIncField
+      AutoGenerateValue = arNone
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tblImageCowimage: TBlobField
+      FieldName = 'image'
+      Origin = 'image'
+    end
+  end
+  object dsImageCow: TDataSource
+    DataSet = tblImageCow
+    Left = 16
+    Top = 272
+  end
+  object dsImage: TDataSource
+    DataSet = tblImage
+    Left = 64
+    Top = 272
+  end
+  object tblImage: TFDTable
+    IndexFieldNames = 'id'
+    Connection = FDConnection1
+    UpdateOptions.UpdateTableName = 'image_cow'
+    TableName = 'image_cow'
+    Left = 64
+    Top = 224
+    object tblImageid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object tblImageimage: TBlobField
+      FieldName = 'image'
+      Origin = 'image'
+    end
+  end
+  object tblImgMainCow: TFDTable
+    IndexFieldNames = 'id'
+    MasterSource = dsMainCow
+    MasterFields = 'id'
+    Connection = FDConnection1
+    UpdateOptions.UpdateTableName = 'image_cow'
+    TableName = 'image_cow'
+    Left = 344
+    Top = 216
+  end
+  object dsImgMainCow: TDataSource
+    DataSet = tblImgMainCow
+    Left = 344
+    Top = 264
+  end
+  object tblColvingMain: TFDTable
+    IndexFieldNames = 'id_cow;id;id_colf'
+    MasterSource = dsMainCow
+    MasterFields = 'id'
+    Connection = FDConnection1
+    UpdateOptions.UpdateTableName = 'colving'
+    TableName = 'colving'
+    Left = 264
+    Top = 208
+    object tblColvingMainid_cow: TIntegerField
+      FieldName = 'id_cow'
+      Origin = 'id_cow'
+      Visible = False
+    end
+    object tblColvingMainid_colf: TIntegerField
+      FieldName = 'id_colf'
+      Origin = 'id_colf'
+    end
+    object tblColvingMainid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      Visible = False
+    end
+    object tblColvingMaindate: TDateField
+      FieldKind = fkLookup
+      FieldName = 'date'
+      LookupDataSet = tblCow
+      LookupKeyFields = 'id'
+      LookupResultField = 'date'
+      KeyFields = 'id_colf'
+      LookupCache = True
+      Lookup = True
+    end
+  end
+  object dsColvingMain: TDataSource
+    DataSet = tblColvingMain
+    Left = 264
+    Top = 256
   end
 end

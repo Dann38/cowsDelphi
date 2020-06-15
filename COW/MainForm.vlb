@@ -61,9 +61,6 @@ Coordinates=504,370,53,51
 [DataModule1.dsHistory]
 Coordinates=215,636,128,33
 
-[id_p_cow]
-Coordinates=349,234,61,51
-
 [rgStatusCow]
 Coordinates=210,166,77,51
 
@@ -84,9 +81,6 @@ Coordinates=154,10,131,123
 
 [DataModule1.dsStatus]
 Coordinates=542,221,124,33
-
-[DBNavigator1]
-Coordinates=249,302,82,51
 
 [Label2]
 Coordinates=286,234,46,51
@@ -155,7 +149,7 @@ Coordinates=10,166,72,51
 Coordinates=552,234,46,51
 
 []
-Coordinates=493,234,41,51
+Coordinates=249,302,82,51
 Visible=True
 
 [clbFilter]

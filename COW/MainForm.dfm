@@ -20,16 +20,18 @@ object Form1: TForm1
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = TabSheet2
+    ActivePage = addCow
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
     object addCow: TTabSheet
       Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077
+      ExplicitLeft = 0
+      ExplicitTop = 28
       object DBGrid1: TDBGrid
         Left = 344
-        Top = 109
-        Width = 577
+        Top = 104
+        Width = 225
         Height = 289
         DataSource = DataModule1.dsMainCow
         TabOrder = 0
@@ -38,15 +40,6 @@ object Form1: TForm1
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnCellClick = DBGrid1CellClick
-      end
-      object DBNavigator1: TDBNavigator
-        Left = 528
-        Top = 416
-        Width = 240
-        Height = 25
-        DataSource = DataModule1.dsMainCow
-        TabOrder = 1
       end
       object btnUpdateFilter: TButton
         Left = 744
@@ -54,7 +47,7 @@ object Form1: TForm1
         Width = 114
         Height = 25
         Caption = #1054#1073#1085#1086#1074#1080#1090#1100' '#1060#1080#1083#1100#1090#1088#1099
-        TabOrder = 2
+        TabOrder = 1
         OnClick = btnUpdateFilterClick
       end
       object btnSearchCow: TButton
@@ -63,7 +56,7 @@ object Form1: TForm1
         Width = 50
         Height = 25
         Caption = #1055#1086#1080#1089#1082
-        TabOrder = 3
+        TabOrder = 2
         OnClick = btnSearchCowClick
       end
       object Panel1: TPanel
@@ -71,13 +64,13 @@ object Form1: TForm1
         Top = 3
         Width = 305
         Height = 439
-        TabOrder = 4
+        TabOrder = 3
         object Label1: TLabel
           Left = 16
           Top = 149
-          Width = 53
+          Width = 113
           Height = 13
-          Caption = 'ID '#1050#1086#1088#1086#1074#1099
+          Caption = 'ID '#1050#1086#1088#1086#1074#1099' ('#1056#1086#1076#1080#1090#1077#1083#1100')'
         end
         object Label2: TLabel
           Left = 16
@@ -103,22 +96,23 @@ object Form1: TForm1
           Caption = #1057#1090#1072#1090#1091#1089
           TabOrder = 1
         end
-        object id_p_cow: TEdit
-          Left = 16
-          Top = 168
-          Width = 121
-          Height = 21
-          TabOrder = 2
-          Text = '0'
-        end
         object btnAppCow: TButton
           Left = 16
           Top = 208
           Width = 75
           Height = 25
           Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-          TabOrder = 3
+          TabOrder = 2
           OnClick = btnAppCowClick
+        end
+        object id_p_cow: TDBEdit
+          Left = 16
+          Top = 181
+          Width = 121
+          Height = 21
+          DataField = 'id'
+          DataSource = DataModule1.dsMainCow
+          TabOrder = 3
         end
       end
       object clbFilter: TCheckListBox
@@ -128,6 +122,17 @@ object Form1: TForm1
         Height = 64
         Columns = 4
         ItemHeight = 13
+        TabOrder = 4
+      end
+      object DBImage1: TDBImage
+        Left = 575
+        Top = 104
+        Width = 346
+        Height = 289
+        DataField = 'image'
+        DataSource = DataModule1.dsImgMainCow
+        Proportional = True
+        Stretch = True
         TabOrder = 5
       end
     end
@@ -284,6 +289,92 @@ object Form1: TForm1
           end
         end
       end
+      object DBNavigator2: TDBNavigator
+        Left = 536
+        Top = 424
+        Width = 240
+        Height = 25
+        DataSource = DataModule1.dsMainCow
+        TabOrder = 2
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = #1054#1090#1105#1083
+      ImageIndex = 3
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      object DBImage2: TDBImage
+        Left = 208
+        Top = 104
+        Width = 380
+        Height = 289
+        DataField = 'image'
+        DataSource = DataModule1.dsImgMainCow
+        Proportional = True
+        Stretch = True
+        TabOrder = 0
+      end
+      object DBGrid2: TDBGrid
+        Left = 11
+        Top = 104
+        Width = 191
+        Height = 289
+        DataSource = DataModule1.dsMainCow
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object clbFilterColving: TCheckListBox
+        Left = 11
+        Top = 34
+        Width = 577
+        Height = 64
+        Columns = 4
+        ItemHeight = 13
+        TabOrder = 2
+      end
+      object DBNavigator3: TDBNavigator
+        Left = 208
+        Top = 399
+        Width = 240
+        Height = 25
+        DataSource = DataModule1.dsMainCow
+        TabOrder = 3
+      end
+      object Button1: TButton
+        Left = 11
+        Top = 3
+        Width = 110
+        Height = 25
+        Caption = #1054#1073#1085#1086#1074#1080#1090#1100' '#1092#1080#1083#1100#1090#1088#1099
+        TabOrder = 4
+        OnClick = Button1Click
+      end
+      object Button2: TButton
+        Left = 127
+        Top = 3
+        Width = 75
+        Height = 25
+        Caption = #1055#1086#1080#1089#1082
+        TabOrder = 5
+        OnClick = Button2Click
+      end
+      object DBGrid3: TDBGrid
+        Left = 600
+        Top = 34
+        Width = 320
+        Height = 359
+        DataSource = DataModule1.dsColvingMain
+        TabOrder = 6
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
     end
   end
   object MainMenu1: TMainMenu
@@ -292,7 +383,7 @@ object Form1: TForm1
     object N1: TMenuItem
       Caption = #1041#1072#1079#1072' '#1076#1072#1085#1085#1099#1093
       object N2: TMenuItem
-        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1041#1044
+        Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1041#1044
         OnClick = N2Click
       end
       object siUpdateDB: TMenuItem
@@ -309,7 +400,7 @@ object Form1: TForm1
     end
   end
   object odConDB: TOpenDialog
-    Left = 404
+    Left = 396
     Top = 65528
   end
 end

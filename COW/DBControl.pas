@@ -5,11 +5,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.DBCtrls, Vcl.Grids,
-  Vcl.DBGrids, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls;
+  Vcl.DBGrids, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.Menus, Vcl.ExtDlgs,
+  Vcl.Mask;
 
 type
   TBDCow = class(TForm)
-    PageControl1: TPageControl;
+    pages: TPageControl;
     Cow: TTabSheet;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -30,6 +31,23 @@ type
     Colving: TTabSheet;
     DBNavigator6: TDBNavigator;
     DBGrid6: TDBGrid;
+    edImage: TDBImage;
+    pmImage: TPopupMenu;
+    iInsertImage: TMenuItem;
+    iOpenImage: TMenuItem;
+    odImage: TOpenPictureDialog;
+    tsImage: TTabSheet;
+    DBGrid7: TDBGrid;
+    edImage2: TDBImage;
+    DBNavigator7: TDBNavigator;
+    pmImage2: TPopupMenu;
+    odImage2: TOpenPictureDialog;
+    imInsert: TMenuItem;
+    imOpenImage: TMenuItem;
+    procedure iInsertImageClick(Sender: TObject);
+    procedure iOpenImageClick(Sender: TObject);
+    procedure imInsertClick(Sender: TObject);
+    procedure imOpenImageClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,5 +61,35 @@ implementation
 
 {$R *.dfm}
 uses
-  MD;
+  MD, JPEG;
+procedure TBDCow.iInsertImageClick(Sender: TObject);
+begin
+  MD.DataModule1.tblImage.Insert;
+  edImage2.PasteFromClipboard;
+  MD.DataModule1.tblImageid.Value:=  MD.DataModule1.tblCowid.Value;
+  MD.DataModule1.tblImage.Post;
+end;
+
+procedure TBDCow.imInsertClick(Sender: TObject);
+begin
+  edImage2.PasteFromClipboard;
+end;
+
+procedure TBDCow.imOpenImageClick(Sender: TObject);
+begin
+     if odImage.Execute then begin
+      MD.DataModule1.tblImageimage.LoadFromFile(odImage.FileName);
+  end;
+end;
+
+procedure TBDCow.iOpenImageClick(Sender: TObject);
+begin
+    if odImage.Execute then begin
+      MD.DataModule1.tblImage.Insert;
+      MD.DataModule1.tblImageid.Value:=  MD.DataModule1.tblCowid.Value;
+      MD.DataModule1.tblImageimage.LoadFromFile(odImage.FileName);
+      MD.DataModule1.tblImage.Post;
+  end;
+end;
+
 end.
