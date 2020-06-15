@@ -47,6 +47,16 @@ type
     qFilterCow: TFDQuery;
     qCount: TFDQuery;
     qUpdateDate: TFDQuery;
+    tblImageCow: TFDTable;
+    dsImageCow: TDataSource;
+    tblImageCowid: TFDAutoIncField;
+    tblImageCowimage: TBlobField;
+    dsImage: TDataSource;
+    tblImage: TFDTable;
+    tblImageid: TIntegerField;
+    tblImageimage: TBlobField;
+    tblImgMainCow: TFDTable;
+    dsImgMainCow: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure  ConectedDB(Sender: TObject;  path: string);
   private

@@ -13,17 +13,16 @@ object BDCow: TBDCow
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object PageControl1: TPageControl
+  object pages: TPageControl
     Left = 0
     Top = 0
     Width = 707
     Height = 373
-    ActivePage = Colving
+    ActivePage = Cow
     Align = alClient
     TabOrder = 0
     object Cow: TTabSheet
       Caption = 'Cow'
-      ExplicitWidth = 693
       object Splitter1: TSplitter
         Left = 345
         Top = 0
@@ -62,8 +61,6 @@ object BDCow: TBDCow
           DataSource = DataModule1.dsCow
           Align = alBottom
           TabOrder = 1
-          ExplicitLeft = 0
-          ExplicitTop = 325
         end
       end
       object Panel2: TPanel
@@ -74,26 +71,22 @@ object BDCow: TBDCow
         Align = alClient
         Caption = 'Panel2'
         TabOrder = 1
-        ExplicitLeft = 350
-        ExplicitWidth = 345
         object DBNavigator2: TDBNavigator
           Left = 1
-          Top = 319
+          Top = 121
           Width = 349
           Height = 25
           DataSource = DataModule1.dsFeatureCow
-          Align = alBottom
+          Align = alTop
           TabOrder = 0
-          ExplicitLeft = 2
-          ExplicitTop = 313
-          ExplicitWidth = 343
+          ExplicitTop = 319
         end
         object DBGrid2: TDBGrid
           Left = 1
           Top = 1
           Width = 349
-          Height = 318
-          Align = alClient
+          Height = 120
+          Align = alTop
           DataSource = DataModule1.dsFeatureCow
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
@@ -118,14 +111,21 @@ object BDCow: TBDCow
               Visible = True
             end>
         end
+        object edImage: TDBImage
+          Left = 3
+          Top = 152
+          Width = 343
+          Height = 185
+          DataField = 'image'
+          DataSource = DataModule1.dsImageCow
+          PopupMenu = pmImage
+          TabOrder = 2
+        end
       end
     end
     object Other: TTabSheet
       Caption = 'Other'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 28
-      ExplicitWidth = 693
       object DBNavigator3: TDBNavigator
         Left = 24
         Top = 142
@@ -172,7 +172,6 @@ object BDCow: TBDCow
     object History: TTabSheet
       Caption = 'History'
       ImageIndex = 2
-      ExplicitWidth = 693
       object DBNavigator4: TDBNavigator
         Left = 43
         Top = 317
@@ -229,5 +228,56 @@ object BDCow: TBDCow
         TitleFont.Style = []
       end
     end
+    object tsImage: TTabSheet
+      Caption = 'Image'
+      ImageIndex = 4
+      object DBGrid7: TDBGrid
+        Left = 3
+        Top = 3
+        Width = 230
+        Height = 286
+        DataSource = DataModule1.dsImage
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object edImage2: TDBImage
+        Left = 255
+        Top = 3
+        Width = 441
+        Height = 286
+        DataField = 'image'
+        DataSource = DataModule1.dsImage
+        PopupMenu = pmImage
+        TabOrder = 1
+      end
+      object DBNavigator7: TDBNavigator
+        Left = 248
+        Top = 304
+        Width = 240
+        Height = 25
+        DataSource = DataModule1.dsImage
+        TabOrder = 2
+      end
+    end
+  end
+  object pmImage: TPopupMenu
+    Left = 352
+    Top = 65528
+    object iInsertImage: TMenuItem
+      Caption = #1042#1089#1090#1072#1074#1080#1090#1100
+      OnClick = iInsertImageClick
+    end
+    object iOpenImage: TMenuItem
+      Caption = #1054#1090#1082#1088#1099#1090#1100
+      OnClick = iOpenImageClick
+    end
+  end
+  object odImage: TOpenPictureDialog
+    Left = 312
+    Top = 65528
   end
 end

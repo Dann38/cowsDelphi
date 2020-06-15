@@ -20,7 +20,7 @@ object Form1: TForm1
     Top = 0
     Width = 943
     Height = 479
-    ActivePage = TabSheet2
+    ActivePage = addCow
     Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
@@ -28,8 +28,8 @@ object Form1: TForm1
       Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077
       object DBGrid1: TDBGrid
         Left = 344
-        Top = 109
-        Width = 577
+        Top = 104
+        Width = 225
         Height = 289
         DataSource = DataModule1.dsMainCow
         TabOrder = 0
@@ -38,7 +38,6 @@ object Form1: TForm1
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnCellClick = DBGrid1CellClick
       end
       object DBNavigator1: TDBNavigator
         Left = 528
@@ -103,22 +102,23 @@ object Form1: TForm1
           Caption = #1057#1090#1072#1090#1091#1089
           TabOrder = 1
         end
-        object id_p_cow: TEdit
-          Left = 16
-          Top = 168
-          Width = 121
-          Height = 21
-          TabOrder = 2
-          Text = '0'
-        end
         object btnAppCow: TButton
           Left = 16
           Top = 208
           Width = 75
           Height = 25
           Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-          TabOrder = 3
+          TabOrder = 2
           OnClick = btnAppCowClick
+        end
+        object id_p_cow: TDBEdit
+          Left = 16
+          Top = 181
+          Width = 121
+          Height = 21
+          DataField = 'id'
+          DataSource = DataModule1.dsMainCow
+          TabOrder = 3
         end
       end
       object clbFilter: TCheckListBox
@@ -129,6 +129,15 @@ object Form1: TForm1
         Columns = 4
         ItemHeight = 13
         TabOrder = 5
+      end
+      object DBImage1: TDBImage
+        Left = 575
+        Top = 104
+        Width = 346
+        Height = 289
+        DataField = 'image'
+        DataSource = DataModule1.dsImgMainCow
+        TabOrder = 6
       end
     end
     object TabSheet2: TTabSheet
